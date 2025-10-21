@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import FirecrawlApp from '@mendable/firecrawl-js';
 
-export class LocaldevClient {
+export class FirecrawlClient {
   private client: FirecrawlApp;
 
   constructor(providedApiKey?: string) {
-    const apiKey = providedApiKey || process.env.LOCALDEV_API_KEY;
+    const apiKey = providedApiKey || process.env.FIRECRAWL_API_KEY;
     if (!apiKey) {
-      throw new Error('LOCALDEV_API_KEY is required - either provide it or set it as an environment variable');
+      throw new Error('FIRECRAWL_API_KEY is required - either provide it or set it as an environment variable');
     }
     this.client = new FirecrawlApp({ apiKey });
   }
@@ -58,7 +58,7 @@ export class LocaldevClient {
           markdown: '',
           html: '',
           metadata: {
-            error: 'This website is not supported by Localdev',
+            error: 'This website is not supported by Firecrawl',
             statusCode: 403,
           },
           success: false,
@@ -119,7 +119,7 @@ export class LocaldevClient {
       const result = await this.client.search(query, searchParams);
       
       
-      // Handle the actual Localdev v1 API response format
+      // Handle the actual Firecrawl v1 API response format
       if (result && typeof result === 'object' && 'success' in result) {
         if (!(result as any).success) {
           throw new Error((result as any).error || 'Search failed');

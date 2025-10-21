@@ -9,8 +9,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Localdev Search",
-  description: "A Localdev template",
+  title: "localdev",
+  description: "A localdev template",
 };
 
 export default function RootLayout({

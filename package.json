@@ -1,5 +1,5 @@
 {
-  "name": "localdev-search",
+  "name": "firecrawl-template",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,7 +9,7 @@
     "lint": "next lint",
     "benchmark": "tsx eval/benchmark-runner.ts",
     "benchmark:quick": "tsx eval/benchmark-runner.ts factual_queries",
-    "test:localdev": "tsx eval/test-firecrawl-simple.ts"
+    "test:firecrawl": "tsx eval/test-firecrawl-simple.ts"
   },
   "dependencies": {
     "@ai-sdk/google": "^2.0.23",

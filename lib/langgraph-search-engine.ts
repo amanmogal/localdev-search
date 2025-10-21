@@ -1,7 +1,7 @@
 import { StateGraph, END, START, Annotation, MemorySaver } from "@langchain/langgraph";
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { HumanMessage, SystemMessage } from "@langchain/core/messages";
-import { LocaldevClient } from './localdev';
+import { FirecrawlClient } from './firecrawl';
 import { ContextProcessor } from './context-processor';
 import { SEARCH_CONFIG, MODEL_CONFIG } from './config';
 
@@ -161,11 +161,11 @@ interface GraphConfig {
 }
 
 export class LangGraphSearchEngine {
-  private localdev: LocaldevClient;
-  private contextProcessor: ContextProcessor;
-  private graph: ReturnType<typeof this.buildGraph>;
-  private llm: ChatGoogleGenerativeAI;
-  private streamingLlm: ChatGoogleGenerativeAI;
+  private firecrawl!: FirecrawlClient;
+  private contextProcessor!: ContextProcessor;
+  private graph!: ReturnType<typeof this.buildGraph>;
+  private llm!: ChatGoogleGenerativeAI;
+  private streamingLlm!: ChatGoogleGenerativeAI;
   private checkpointer?: MemorySaver;
 
   constructor(firecrawl: FirecrawlClient, options?: { enableCheckpointing?: boolean }) {
@@ -217,7 +217,7 @@ export class LangGraphSearchEngine {
     const summarizeContent = this.summarizeContent.bind(this);
     const generateStreamingAnswer = this.generateStreamingAnswer.bind(this);
     const generateFollowUpQuestions = this.generateFollowUpQuestions.bind(this);
-    const localdev = this.localdev;
+    const firecrawl = this.firecrawl;
     const contextProcessor = this.contextProcessor;
     
     const workflow = new StateGraph(SearchStateAnnotation)
@@ -378,7 +378,7 @@ export class LangGraphSearchEngine {
         }
         
         try {
-          const results = await localdev.search(searchQuery, {
+          const results = await firecrawl.search(searchQuery, {
             limit: SEARCH_CONFIG.MAX_SOURCES_PER_SEARCH,
             scrapeOptions: {
               formats: ['markdown']
@@ -512,7 +512,7 @@ export class LangGraphSearchEngine {
           }
           
           try {
-            const scraped = await localdev.scrapeUrl(source.url, SEARCH_CONFIG.SCRAPE_TIMEOUT);
+            const scraped = await firecrawl.scrapeUrl(source.url, SEARCH_CONFIG.SCRAPE_TIMEOUT);
             if (scraped.success && scraped.markdown) {
               const enrichedSource = {
                 ...source,
