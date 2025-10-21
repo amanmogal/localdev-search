@@ -27,7 +27,7 @@ export default function Home() {
             </span>
           </h1>
           <p className="mt-6 text-lg text-zinc-600 dark:text-zinc-400 opacity-0 animate-fade-up [animation-duration:500ms] [animation-delay:600ms] [animation-fill-mode:forwards]">
-            AI-powered search powered by Firecrawl and LangGraph
+            AI-powered search with LangGraph
           </p>
         </div>
       </div>
