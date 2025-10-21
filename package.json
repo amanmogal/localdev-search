@@ -1,5 +1,5 @@
 {
-  "name": "firecrawl-template",
+  "name": "localdev-search",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,15 +9,14 @@
     "lint": "next lint",
     "benchmark": "tsx eval/benchmark-runner.ts",
     "benchmark:quick": "tsx eval/benchmark-runner.ts factual_queries",
-    "test:firecrawl": "tsx eval/test-firecrawl-simple.ts"
+    "test:localdev": "tsx eval/test-firecrawl-simple.ts"
   },
   "dependencies": {
-    "@ai-sdk/google": "^1.2.18",
-    "@ai-sdk/openai": "^1.3.22",
+    "@ai-sdk/google": "^2.0.23",
     "@fal-ai/client": "^1.4.0",
-    "@langchain/core": "^0.3.57",
-    "@langchain/langgraph": "^0.2.74",
-    "@langchain/openai": "^0.5.11",
+    "@langchain/core": "^1.0.1",
+    "@langchain/google-genai": "^1.0.0",
+    "@langchain/langgraph": "^1.0.0",
     "@mendable/firecrawl-js": "^1.25.1",
     "@radix-ui/react-dialog": "^1.1.13",
     "@radix-ui/react-label": "^2.1.6",
@@ -32,7 +31,7 @@
     "@types/uuid": "^10.0.0",
     "@upstash/ratelimit": "^2.0.5",
     "@upstash/redis": "^1.34.9",
-    "ai": "^4.3.16",
+    "ai": "4.3.16",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.511.0",
@@ -56,6 +55,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.3.2",
     "tailwindcss": "^4",
+    "tsx": "^4.20.6",
     "tw-animate-css": "^1.3.0",
     "typescript": "^5"
   }

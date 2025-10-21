@@ -1,18 +1,18 @@
-# Firesearch - AI-Powered Deep Research Tool
+# Localdev Search - AI-Powered Deep Research Tool
 
 <div align="center">
-  <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2F2YWo4amdieGVnOXR3aGM5ZnBlcDZvbnRjNW1vNmtpeWNhc3VtbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Jw7Q08ll8Vh0BoApI8/giphy.gif" alt="Firesearch Demo" width="100%" />
+  <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExd2F2YWo4amdieGVnOXR3aGM5ZnBlcDZvbnRjNW1vNmtpeWNhc3VtbSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Jw7Q08ll8Vh0BoApI8/giphy.gif" alt="Localdev Search Demo" width="100%" />
 </div>
 
-Comprehensive web research powered by [Firecrawl](https://www.firecrawl.dev/) and [LangGraph](https://www.langchain.com/langgraph)
+Comprehensive web research powered by [Localdev](https://www.firecrawl.dev/) and [LangGraph](https://www.langchain.com/langgraph)
 
 ## Technologies
 
-- **Firecrawl**: Multi-source web content extraction
-- **OpenAI GPT-4o**: Search planning and follow-up generation
+- **Localdev**: Multi-source web content extraction
+- **Google Gemini**: Search planning and follow-up generation
 - **Next.js 15**: Modern React framework with App Router
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmendableai%2Ffiresearch&env=FIRECRAWL_API_KEY,OPENAI_API_KEY&envDescription=API%20keys%20required%20for%20Firesearch&envLink=https%3A%2F%2Fgithub.com%2Fmendableai%2Ffiresearch%23required-api-keys)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Famanmogal%2Flocaldev-search.git&env=LOCALDEV_API_KEY,GOOGLE_API_KEY&envDescription=API%20keys%20required%20for%20Localdev%20Search&envLink=https%3A%2F%2Fgithub.com%2Famanmogal%2Flocaldev-search%23required-api-keys)
 
 ## Setup
 
@@ -20,16 +20,16 @@ Comprehensive web research powered by [Firecrawl](https://www.firecrawl.dev/) an
 
 | Service | Purpose | Get Key |
 |---------|---------|---------|
-| Firecrawl | Web scraping and content extraction | [firecrawl.dev/app/api-keys](https://www.firecrawl.dev/app/api-keys) |
-| OpenAI | Search planning and summarization | [platform.openai.com/api-keys](https://platform.openai.com/api-keys) |
+| Localdev | Web scraping and content extraction | [firecrawl.dev/app/api-keys](https://www.firecrawl.dev/app/api-keys) |
+| Google | Search planning and summarization | [makersuite.google.com/app/keys](https://makersuite.google.com/app/keys) |
 
 ### Quick Start
 
 1. Clone this repository
 2. Create a `.env.local` file with your API keys:
    ```
-   FIRECRAWL_API_KEY=your_firecrawl_key
-   OPENAI_API_KEY=your_openai_key
+   LOCALDEV_API_KEY=your_localdev_key
+   GOOGLE_API_KEY=your_google_key
    ```
 3. Install dependencies: `npm install` or `yarn install`
 4. Run the development server: `npm run dev` or `yarn dev`
@@ -54,10 +54,10 @@ flowchart TB
     
     Break --> SubQ
     
-    subgraph FC["🔥 Firecrawl API Calls"]
-        FC1["Firecrawl /search API<br/>Query 1"]:::firecrawl
-        FC2["Firecrawl /search API<br/>Query 2"]:::firecrawl
-        FC3["Firecrawl /search API<br/>Query 3"]:::firecrawl
+    subgraph FC["🔥 Localdev API Calls"]
+        FC1["Localdev /search API<br/>Query 1"]:::firecrawl
+        FC2["Localdev /search API<br/>Query 2"]:::firecrawl
+        FC3["Localdev /search API<br/>Query 3"]:::firecrawl
     end
     
     S1 --> FC1
@@ -102,9 +102,9 @@ flowchart TB
     Strat --> Retry2
     
     subgraph FC2G["🔥 Retry API Calls"]
-        FC4["Firecrawl /search API<br/>Alt Query 1"]:::firecrawl
-        FC5["Firecrawl /search API<br/>Alt Query 2"]:::firecrawl
-        FC6["Firecrawl /search API<br/>Alt Query 3"]:::firecrawl
+        FC4["Localdev /search API<br/>Alt Query 1"]:::firecrawl
+        FC5["Localdev /search API<br/>Alt Query 2"]:::firecrawl
+        FC6["Localdev /search API<br/>Alt Query 3"]:::firecrawl
     end
     
     Alt1 --> FC4
@@ -157,7 +157,7 @@ flowchart TB
 ### Process Flow
 
 1. **Break Down** - Complex queries split into focused sub-questions
-2. **Search** - Multiple searches via Firecrawl API for comprehensive coverage
+2. **Search** - Multiple searches via Localdev API for comprehensive coverage
 3. **Extract** - Markdown content extracted from web sources
 4. **Validate** - Check if sources actually answer the questions (0.7+ confidence)
 5. **Retry** - Alternative search terms for unanswered questions (max 2 attempts)
@@ -197,9 +197,9 @@ export const SEARCH_CONFIG = {
 } as const;
 ```
 
-### Firecrawl API Integration
+### Localdev API Integration
 
-Firesearch leverages Firecrawl's powerful `/search` endpoint:
+Localdev Search leverages Localdev's powerful `/search` endpoint:
 
 #### `/search` - Web Search with Content
 - **Purpose**: Finds relevant URLs AND extracts markdown content in one call
@@ -231,7 +231,7 @@ When initial results are insufficient, the system automatically tries:
 
 ## Example Queries
 
-- "Who are the founders of Firecrawl?"
+- "Who are the founders of Localdev?"
 - "When did NVIDIA release the RTX 4080 Super?"
 - "Compare the latest iPhone, Samsung Galaxy, and Google Pixel flagship features"
 

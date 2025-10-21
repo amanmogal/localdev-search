@@ -1,6 +1,6 @@
 import { Source } from './langgraph-search-engine';
 import { generateText } from 'ai';
-import { openai } from '@ai-sdk/openai';
+import { google } from '@ai-sdk/google';
 
 interface ProcessedSource extends Source {
   relevanceScore: number;
@@ -309,7 +309,8 @@ export class ContextProcessor {
       // Create a focused prompt for relevance-based summarization
       
       const result = await generateText({
-        model: openai('gpt-4o-mini'),
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        model: google('gemini-1.5-flash') as any,
         prompt: `You are a research assistant helping to extract the most relevant information from a webpage.
 
 User's question: "${query}"

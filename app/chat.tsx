@@ -21,10 +21,9 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 
 const SUGGESTED_QUERIES = [
-  "Who are the founders of Firecrawl?",
+  "Who are the founders of Localdev?",
   "When did NVIDIA release the RTX 4080 Super?",
   "Compare the latest iPhone 16 and Samsung Galaxy S25",
-  "Compare Claude 4 to OpenAI's o3"
 ];
 
 // Helper component for sources list
@@ -194,7 +193,7 @@ export function Chat() {
   const [isSearching, setIsSearching] = useState(false);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [hasShownSuggestions, setHasShownSuggestions] = useState(false);
-  const [firecrawlApiKey, setFirecrawlApiKey] = useState<string>('');
+  const [localdevApiKey, setLocaldevApiKey] = useState<string>('');
   const [hasApiKey, setHasApiKey] = useState<boolean>(false);
   const [showApiKeyModal, setShowApiKeyModal] = useState<boolean>(false);
   const [, setIsCheckingEnv] = useState<boolean>(true);
@@ -215,9 +214,7 @@ export function Chat() {
         const data = await response.json();
         
         if (data.environmentStatus) {
-          // Only check for Firecrawl API key since we can pass it from frontend
-          // OpenAI and Anthropic keys must be in environment
-          setHasApiKey(data.environmentStatus.FIRECRAWL_API_KEY);
+          setHasApiKey(data.environmentStatus.LOCALDEV_API_KEY);
         }
       } catch (error) {
         console.error('Failed to check environment:', error);
@@ -238,7 +235,7 @@ export function Chat() {
   }, [messages]);
 
   const saveApiKey = () => {
-    if (firecrawlApiKey.trim()) {
+    if (localdevApiKey.trim()) {
       setHasApiKey(true);
       setShowApiKeyModal(false);
       toast.success('API key saved! Starting your search...');
@@ -305,9 +302,7 @@ export function Chat() {
         }
       }
       
-      // Get search stream with context
-      // Pass the API key only if user provided one, otherwise let server use env var
-      const { stream } = await search(query, conversationContext, firecrawlApiKey || undefined);
+      const { stream } = await search(query, conversationContext, localdevApiKey || undefined);
       let finalContent = '';
       
       // Read stream and update events
@@ -425,12 +420,11 @@ export function Chat() {
           <div className="p-4 border border-red-200 dark:border-red-800 bg-red-50 dark:bg-red-900/20 rounded-lg">
             <p className="text-red-700 dark:text-red-300 font-medium">Search Error</p>
             <p className="text-red-600 dark:text-red-400 text-sm mt-1">{errorMessage}</p>
-            {(errorMessage.includes('API key') || errorMessage.includes('OPENAI_API_KEY')) && (
+            {(errorMessage.includes('API key') || errorMessage.includes('GOOGLE_API_KEY')) && (
               <p className="text-red-600 dark:text-red-400 text-sm mt-2">
                 Please ensure all required API keys are set in your environment variables:
-                <br />• OPENAI_API_KEY (for GPT-4o)
-                <br />• ANTHROPIC_API_KEY (optional, for Claude)
-                <br />• FIRECRAWL_API_KEY (can be provided via UI)
+                <br />• GOOGLE_API_KEY (for Gemini)
+                <br />• LOCALDEV_API_KEY (can be provided via UI)
               </p>
             )}
           </div>
@@ -656,19 +650,19 @@ export function Chat() {
       <Dialog open={showApiKeyModal} onOpenChange={setShowApiKeyModal}>
         <DialogContent className="sm:max-w-[425px] bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100">
           <DialogHeader>
-            <DialogTitle>Firecrawl API Key Required</DialogTitle>
+            <DialogTitle>Localdev API Key Required</DialogTitle>
             <DialogDescription>
-              To use Firesearch, you need a Firecrawl API key. You can get one for free.
+              To use Localdev Search, you need a Localdev API key. You can get one for free.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="space-y-2">
               <Button
-                onClick={() => window.open('https://www.firecrawl.dev/app/api-keys', '_blank')}
+                onClick={() => window.open('https://local.dev', '_blank')}
                 className="w-full"
                 variant="code"
               >
-                Get your free API key from Firecrawl →
+                Get your free API key from Localdev →
               </Button>
             </div>
             <div className="space-y-2">
@@ -678,9 +672,9 @@ export function Chat() {
               <Input
                 id="apiKey"
                 type="password"
-                value={firecrawlApiKey}
-                onChange={(e) => setFirecrawlApiKey(e.target.value)}
-                placeholder="fc-..."
+                value={localdevApiKey}
+                onChange={(e) => setLocaldevApiKey(e.target.value)}
+                placeholder="ld-..."
                 className="w-full"
               />
             </div>
@@ -695,7 +689,7 @@ export function Chat() {
             <Button 
               variant="orange"
               onClick={saveApiKey}
-              disabled={!firecrawlApiKey.trim()}
+              disabled={!localdevApiKey.trim()}
             >
               Save and Continue
             </Button>

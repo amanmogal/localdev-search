@@ -1,7 +1,7 @@
 import { StateGraph, END, START, Annotation, MemorySaver } from "@langchain/langgraph";
-import { ChatOpenAI } from "@langchain/openai";
+import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { HumanMessage, SystemMessage } from "@langchain/core/messages";
-import { FirecrawlClient } from './firecrawl';
+import { LocaldevClient } from './localdev';
 import { ContextProcessor } from './context-processor';
 import { SEARCH_CONFIG, MODEL_CONFIG } from './config';
 
@@ -161,34 +161,34 @@ interface GraphConfig {
 }
 
 export class LangGraphSearchEngine {
-  private firecrawl: FirecrawlClient;
+  private localdev: LocaldevClient;
   private contextProcessor: ContextProcessor;
   private graph: ReturnType<typeof this.buildGraph>;
-  private llm: ChatOpenAI;
-  private streamingLlm: ChatOpenAI;
+  private llm: ChatGoogleGenerativeAI;
+  private streamingLlm: ChatGoogleGenerativeAI;
   private checkpointer?: MemorySaver;
 
   constructor(firecrawl: FirecrawlClient, options?: { enableCheckpointing?: boolean }) {
     this.firecrawl = firecrawl;
     this.contextProcessor = new ContextProcessor();
     
-    const apiKey = process.env.OPENAI_API_KEY;
+    const apiKey = process.env.GOOGLE_API_KEY;
     if (!apiKey) {
-      throw new Error('OPENAI_API_KEY environment variable is not set');
+      throw new Error('GOOGLE_API_KEY environment variable is not set');
     }
     
     // Initialize LangChain models
-    this.llm = new ChatOpenAI({
-      modelName: MODEL_CONFIG.FAST_MODEL,
+    this.llm = new ChatGoogleGenerativeAI({
+      model: MODEL_CONFIG.FAST_MODEL,
       temperature: MODEL_CONFIG.TEMPERATURE,
-      openAIApiKey: apiKey,
+      apiKey: apiKey,
     });
     
-    this.streamingLlm = new ChatOpenAI({
-      modelName: MODEL_CONFIG.QUALITY_MODEL,
+    this.streamingLlm = new ChatGoogleGenerativeAI({
+      model: MODEL_CONFIG.QUALITY_MODEL,
       temperature: MODEL_CONFIG.TEMPERATURE,
       streaming: true,
-      openAIApiKey: apiKey,
+      apiKey: apiKey,
     });
 
     // Enable checkpointing if requested
@@ -217,7 +217,7 @@ export class LangGraphSearchEngine {
     const summarizeContent = this.summarizeContent.bind(this);
     const generateStreamingAnswer = this.generateStreamingAnswer.bind(this);
     const generateFollowUpQuestions = this.generateFollowUpQuestions.bind(this);
-    const firecrawl = this.firecrawl;
+    const localdev = this.localdev;
     const contextProcessor = this.contextProcessor;
     
     const workflow = new StateGraph(SearchStateAnnotation)
@@ -378,7 +378,7 @@ export class LangGraphSearchEngine {
         }
         
         try {
-          const results = await firecrawl.search(searchQuery, {
+          const results = await localdev.search(searchQuery, {
             limit: SEARCH_CONFIG.MAX_SOURCES_PER_SEARCH,
             scrapeOptions: {
               formats: ['markdown']
@@ -512,7 +512,7 @@ export class LangGraphSearchEngine {
           }
           
           try {
-            const scraped = await firecrawl.scrapeUrl(source.url, SEARCH_CONFIG.SCRAPE_TIMEOUT);
+            const scraped = await localdev.scrapeUrl(source.url, SEARCH_CONFIG.SCRAPE_TIMEOUT);
             if (scraped.success && scraped.markdown) {
               const enrichedSource = {
                 ...source,

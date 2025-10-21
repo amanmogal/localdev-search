@@ -35,7 +35,7 @@ export const UI_CONFIG = {
 
 // Model Configuration
 export const MODEL_CONFIG = {
-  FAST_MODEL: "gpt-4o-mini",     // Fast model for quick operations
-  QUALITY_MODEL: "gpt-4o",       // High-quality model for final synthesis
+  FAST_MODEL: "gemini-1.5-flash",     // Fast model for quick operations
+  QUALITY_MODEL: "gemini-1.5-pro",       // High-quality model for final synthesis
   TEMPERATURE: 0,                // Model temperature (0 = deterministic)
 } as const;

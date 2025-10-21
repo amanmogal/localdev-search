@@ -8,20 +8,20 @@ export default function Home() {
       <header className="px-4 sm:px-6 lg:px-8 py-4">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <a
-            href="https://firecrawl.dev"
+            href="https://local.dev"
             target="_blank"
             rel="noopener noreferrer"
           >
             <Image
-              src="/firecrawl-logo-with-fire.png"
-              alt="Firecrawl Logo"
+              src="/localdev-logo.png"
+              alt="Localdev Logo"
               width={113}
               height={24}
               className="w-[113px] h-auto"
             />
           </a>
           <a
-            href="https://github.com/mendableai/firesearch"
+            href="https://github.com/amanmogal/localdev-search"
             target="_blank"
             rel="noopener noreferrer"
             className="justify-center whitespace-nowrap ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none rounded-[10px] text-sm transition-all duration-200 disabled:cursor-not-allowed disabled:opacity-50 bg-[#36322F] text-[#fff] hover:bg-[#4a4542] disabled:bg-[#8c8885] disabled:hover:bg-[#8c8885] [box-shadow:inset_0px_-2.108433723449707px_0px_0px_#171310,_0px_1.2048193216323853px_6.325301647186279px_0px_rgba(58,_33,_8,_58%)] hover:translate-y-[1px] hover:scale-[0.98] hover:[box-shadow:inset_0px_-1px_0px_0px_#171310,_0px_1px_3px_0px_rgba(58,_33,_8,_40%)] active:translate-y-[2px] active:scale-[0.97] active:[box-shadow:inset_0px_1px_1px_0px_#171310,_0px_1px_2px_0px_rgba(58,_33,_8,_30%)] disabled:shadow-none disabled:hover:translate-y-0 disabled:hover:scale-100 h-10 px-4 py-2 font-medium flex items-center gap-2"
@@ -39,14 +39,14 @@ export default function Home() {
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-[2.5rem] lg:text-[3.8rem] text-[#36322F] dark:text-white font-semibold tracking-tight leading-[0.9] opacity-0 animate-fade-up [animation-duration:500ms] [animation-delay:200ms] [animation-fill-mode:forwards]">
             <span className="relative px-1 text-transparent bg-clip-text bg-gradient-to-tr from-red-600 to-yellow-500 inline-flex justify-center items-center">
-              Firesearch
+              Localdev Search
             </span>
             <span className="block leading-[1.1] opacity-0 animate-fade-up [animation-duration:500ms] [animation-delay:400ms] [animation-fill-mode:forwards]">
               Deep Research
             </span>
           </h1>
           <p className="mt-6 text-lg text-zinc-600 dark:text-zinc-400 opacity-0 animate-fade-up [animation-duration:500ms] [animation-delay:600ms] [animation-fill-mode:forwards]">
-            AI-powered search powered by Firecrawl and LangGraph
+            AI-powered search powered by Localdev and LangGraph
           </p>
         </div>
       </div>
@@ -63,12 +63,12 @@ export default function Home() {
           <p className="text-sm text-gray-600 dark:text-gray-400">
             Powered by{' '}
             <a
-              href="https://firecrawl.dev"
+              href="https://local.dev"
               target="_blank"
               rel="noopener noreferrer"
               className="text-orange-600 hover:text-orange-700 dark:text-orange-400 dark:hover:text-orange-300 font-medium"
             >
-              Firecrawl
+              Localdev
             </a>
             {' and '}
             <a

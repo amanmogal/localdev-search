@@ -1,15 +1,14 @@
 'use server';
 
 import { createStreamableValue } from 'ai/rsc';
-import { FirecrawlClient } from '@/lib/firecrawl';
+import { LocaldevClient } from '@/lib/localdev';
 import { LangGraphSearchEngine as SearchEngine, SearchEvent } from '@/lib/langgraph-search-engine';
 
 export async function search(query: string, context?: { query: string; response: string }[], apiKey?: string) {
   const stream = createStreamableValue<SearchEvent>();
   
-  // Create FirecrawlClient with API key if provided
-  const firecrawl = new FirecrawlClient(apiKey);
-  const searchEngine = new SearchEngine(firecrawl);
+  const localdev = new LocaldevClient(apiKey);
+  const searchEngine = new SearchEngine(localdev);
 
   // Run search in background
   (async () => {
