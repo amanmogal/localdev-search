@@ -1,5 +1,5 @@
 import { Chat } from './chat';
-import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Home() {
   return (
@@ -8,9 +8,9 @@ export default function Home() {
       <header className="px-4 sm:px-6 lg:px-8 py-4">
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           {/* Brand name */}
-          <a href="/" className="text-2xl font-semibold text-[#36322F] dark:text-white">
+          <Link href="/" className="text-2xl font-semibold text-[#36322F] dark:text-white">
             localdev
-          </a>
+          </Link>
 
         </div>
       </header>
